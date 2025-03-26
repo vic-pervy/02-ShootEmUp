@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class BulletSystem : MonoBehaviour
+    public sealed class BulletSystem : MonoBehaviour, IFixedUpdate
     {
         [SerializeField]
         private int initialCount = 50;
@@ -26,7 +26,7 @@ namespace ShootEmUp
             }
         }
         
-        private void FixedUpdate()
+        void IFixedUpdate.FixedUpdate()
         {
             this.m_cache.Clear();
             this.m_cache.AddRange(this.m_activeBullets);

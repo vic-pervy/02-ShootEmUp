@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace ShootEmUp
 {
-    public sealed class InputManager : MonoBehaviour
+    public sealed class InputManager : MonoBehaviour, IUpdate, IFixedUpdate
     {
         public float HorizontalDirection { get; private set; }
 
@@ -12,7 +13,7 @@ namespace ShootEmUp
         [SerializeField]
         private CharacterController characterController;
 
-        private void Update()
+        void IUpdate.Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -33,7 +34,7 @@ namespace ShootEmUp
             }
         }
         
-        private void FixedUpdate()
+        void IFixedUpdate.FixedUpdate()
         {
             this.character.GetComponent<MoveComponent>().MoveByRigidbodyVelocity(new Vector2(this.HorizontalDirection, 0) * Time.fixedDeltaTime);
         }

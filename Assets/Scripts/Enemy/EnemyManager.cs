@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyManager : MonoBehaviour
+    public sealed class EnemyManager : MonoBehaviour, IUpdate
     {
         [SerializeField]
         private EnemyPool _enemyPool;
@@ -14,7 +14,7 @@ namespace ShootEmUp
         
         private readonly HashSet<GameObject> m_activeEnemies = new();
 
-        private IEnumerator Start()
+        /*private IEnumerator Start()
         {
             while (true)
             {
@@ -28,6 +28,23 @@ namespace ShootEmUp
                         enemy.GetComponent<EnemyAttackAgent>().OnFire += this.OnFire;
                     }    
                 }
+            }
+        }*/
+
+        private float time = 1;
+        void IUpdate.Update()
+        {
+            time -= Time.deltaTime;
+            if (time > 0) return;
+            time = 1;
+            var enemy = this._enemyPool.SpawnEnemy();
+            if (enemy != null)
+            {
+                if (this.m_activeEnemies.Add(enemy))
+                {
+                    enemy.GetComponent<HitPointsComponent>().hpEmpty += this.OnDestroyed;
+                    enemy.GetComponent<EnemyAttackAgent>().OnFire += this.OnFire;
+                }    
             }
         }
 
