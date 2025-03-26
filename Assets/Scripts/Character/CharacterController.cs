@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class CharacterController : MonoBehaviour
+    public sealed class CharacterController : MonoBehaviour, IFixedUpdate
     {
         [SerializeField] private GameObject character; 
         [SerializeField] private GameManager gameManager;
@@ -23,7 +23,7 @@ namespace ShootEmUp
 
         private void OnCharacterDeath(GameObject _) => this.gameManager.FinishGame();
 
-        private void FixedUpdate()
+        void IFixedUpdate.FixedUpdate()
         {
             if (this._fireRequired)
             {
