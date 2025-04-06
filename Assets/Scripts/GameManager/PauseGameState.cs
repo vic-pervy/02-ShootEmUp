@@ -8,6 +8,7 @@ namespace ShootEmUp
     {
         public override void EnterState(GameManager gameManager)
         {
+            Time.timeScale = 0;
             gameManager.CountDownText.gameObject.SetActive(false);
             gameManager.PauseButton.gameObject.SetActive(false);
             gameManager.PlayButton.gameObject.SetActive(true);

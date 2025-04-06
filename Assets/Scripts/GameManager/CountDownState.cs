@@ -9,6 +9,7 @@ namespace ShootEmUp
 
         public override void EnterState(GameManager gameManager)
         {
+            Time.timeScale = 0;
             this.gameManager = gameManager;
             countDownTime = 3;
             gameManager.CountDownText.gameObject.SetActive(true);
@@ -23,7 +24,7 @@ namespace ShootEmUp
 
         public override void Update()
         {
-            countDownTime -= Time.deltaTime;
+            countDownTime -= Time.unscaledTime;
             if (countDownTime <= 0)
             {
                 countDownTime = 0;
